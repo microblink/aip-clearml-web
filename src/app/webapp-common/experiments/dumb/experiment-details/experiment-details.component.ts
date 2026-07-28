@@ -12,6 +12,7 @@ import {RouterLink} from '@angular/router';
 import {DurationPipe} from '@common/shared/pipes/duration.pipe';
 import {NAPipe} from '@common/shared/pipes/na.pipe';
 import {DatePipe} from '@angular/common';
+import {ExperimentTagsEnum} from '~/features/experiments/shared/experiments.const';
 
 
 export const EXPERIMENT_COMMENT = 'ExperimentComment';
@@ -45,6 +46,13 @@ export class ExperimentDetailsComponent {
   experiment = input<IExperimentInfo>();
   editable = input<boolean>();
   isExample = input<boolean>();
+
+  isPipeline = computed(() => !!this.experiment()?.system_tags?.includes(ExperimentTagsEnum.Pipeline));
+  // Either this task is itself a pipeline (controller task), or it's a step launched
+  // by one, in which case ClearML sets its `parent` to the pipeline's controller task.
+  pipelineTask = computed(() => this.isPipeline()
+    ? {id: this.experiment()?.id, name: this.experiment()?.name, project: this.experiment()?.project}
+    : this.experiment()?.parent);
 
   runtimeEntries = computed(() =>
     Object.entries(this.experiment()?.runtime ?? {})

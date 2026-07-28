@@ -9,6 +9,7 @@ import {
 } from '~/business-logic/model/events/eventsGetTaskSingleValueMetricsResponseTasks';
 import {ChartHoverModeEnum} from '@common/experiments/shared/common-experiments.const';
 import {ReportsApiMultiplotsResponse} from '@common/constants';
+import {CompareScalarLegendMode} from '@common/experiments-compare/shared/compare-scalar-legend-tags.util';
 
 export type GroupedHyperParams = Record<string, HyperParams>;
 
@@ -46,6 +47,11 @@ export interface ExperimentCompareSettings extends Omit<ExperimentSettings, 'id'
   selectedParamsHoverInfo: string[];
   selectedMetricsHoverInfo: SelectedMetricVariant[];
   lineWidth: number;
+  /** Compare scalars: how task tags appear in Plotly trace legend names */
+  scalarLegendMode?: CompareScalarLegendMode;
+  /** Substring filter (case-insensitive) on tag strings; empty = all tags */
+  scalarLegendTagFilter?: string;
+  scalarLegendIncludeSystemTags?: boolean;
 }
 
 export const initialState: IExperimentCompareChartsState = {

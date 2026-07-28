@@ -89,6 +89,15 @@
     }
   </sm-labeled-row>
 
+  @if (pipelineTask()) {
+    <sm-labeled-row label="PIPELINE:">
+      <div class="d-flex align-items-center">
+        <a [href]="'pipelines/' + (pipelineTask()?.project?.id || '*') + '/experiments/' + pipelineTask()?.id"
+        target="_blank">{{ pipelineTask()?.name }}</a>
+      </div>
+    </sm-labeled-row>
+  }
+
   <sm-labeled-row label="PROJECT:">
     {{ experiment()?.project?.name | NA }}
   </sm-labeled-row>

@@ -1,0 +1,8 @@
+# Docker build compiles from source; exclude local artifacts and deps from context.
+node_modules
+build
+dist
+.git
+.angular
+.idea
+.vscode
